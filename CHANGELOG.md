@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## v3.0.0
+* **BREAKING:** Upgraded to Sanity Studio v4 and v5
+* Updated `sanity` peer dependency to support `^4.0.0 || ^5.0.0` (works with both versions)
+* Updated `@sanity/ui` peer dependency from `^1.0.0` to `^3.0.0`
+* Updated `react` and `react-dom` peer dependencies to support `^18.0.0 || ^19.0.0` (React 18 for v4, React 19 for v5)
+* Updated minimum Node.js requirement to v20.19+
+* Replaced deprecated `useFormBuilder` hook with `useFormValue` hook for v4/v5 compatibility
+* Fixed build configuration to properly strip source paths
+* Plugin code is fully compatible with both Sanity Studio v4 and v5 with no breaking changes
+
+## v2.0.0
+* Updated for Sanity Studio v3
+
 ## v1.4.0
 * [#3](https://github.com/LiamMartens/sanity-plugin-autocomplete-input/issues/3) Added `disableNew` option similar to the native `Reference` type to disallow creating new options inline.
 * [#1](https://github.com/LiamMartens/sanity-plugin-autocomplete-input/issues/1) A new option was added to resolve additional GROQ params from the parent value.

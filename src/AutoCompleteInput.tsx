@@ -10,7 +10,7 @@ import {
   set,
   unset,
   useClient,
-  useFormBuilder,
+  useFormValue,
 } from "sanity";
 import type { InputOptions, Option } from "./types";
 
@@ -23,7 +23,7 @@ export const AutoCompleteInput = (props: InputProps) => {
   const { id, schemaType, value, validationError, readOnly, onChange } = props;
 
   const sanityClient = useClient();
-  const { value: documentValue } = useFormBuilder();
+  const documentValue = useFormValue([]);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = React.useState("");
   const [options, setOptions] = React.useState<Option[]>([]);
@@ -68,7 +68,7 @@ export const AutoCompleteInput = (props: InputProps) => {
         query: `*[defined(${path})] { "value": ${path} }`,
       };
 
-      const resolvedParams = typeof params === "function" ? params(documentValue) : params;
+      const resolvedParams = typeof params === "function" ? params(documentValue as Record<string, unknown> | undefined) : params;
 
       sanityClient.fetch(query, resolvedParams).then((results) => {
         if (Array.isArray(results)) {

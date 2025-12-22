@@ -1,11 +1,19 @@
 # sanity-plugin-autocomplete-input
-*Note: the main branch is now a V3 plugin. For V2 checkout v1.x*
+*Note: the main branch is now a V4+ plugin. For V3 checkout v2.x, for V2 checkout v1.x*
 
 [![https://img.shields.io/npm/v/sanity-plugin-autocomplete-input](https://img.shields.io/npm/v/sanity-plugin-autocomplete-input)](https://www.npmjs.com/package/sanity-plugin-autocomplete-input)
 
 ![example](https://raw.githubusercontent.com/LiamMartens/sanity-plugin-autocomplete-input/main/docs/img/example.gif)
 
 This plugin is similar to the [Autocomplete Tags Plugin](https://www.sanity.io/plugins/autocomplete-tags), but it acts as a single text input as opposed to an array of tags. The input can also be customized to change the autocomplete options.
+
+## Compatibility
+
+- **v3.x:** Sanity Studio v4 & v5 (Node.js v20.19+, React 18 or 19)
+  - Fully compatible with both Sanity v4 and v5
+  - Supports React 18 (Sanity v4) and React 19 (Sanity v5)
+- **v2.x:** Sanity Studio v3 (Node.js v18+, React 18)
+- **v1.x:** Sanity Studio v2
 
 ## Installation
 
