@@ -1,11 +1,18 @@
-# sanity-plugin-autocomplete-input
-*Note: the main branch is now a V4+ plugin. For V3 checkout v2.x, for V2 checkout v1.x*
+# @srothgan/sanity-plugin-autocomplete-input
 
-[![https://img.shields.io/npm/v/sanity-plugin-autocomplete-input](https://img.shields.io/npm/v/sanity-plugin-autocomplete-input)](https://www.npmjs.com/package/sanity-plugin-autocomplete-input)
+[![npm version](https://img.shields.io/npm/v/@srothgan/sanity-plugin-autocomplete-input)](https://www.npmjs.com/package/@srothgan/sanity-plugin-autocomplete-input)
+[![Original Repository](https://img.shields.io/badge/original-LiamMartens%2Fsanity--plugin--autocomplete--input-blue)](https://github.com/LiamMartens/sanity-plugin-autocomplete-input)
 
 ![example](https://raw.githubusercontent.com/LiamMartens/sanity-plugin-autocomplete-input/main/docs/img/example.gif)
 
 This plugin is similar to the [Autocomplete Tags Plugin](https://www.sanity.io/plugins/autocomplete-tags), but it acts as a single text input as opposed to an array of tags. The input can also be customized to change the autocomplete options.
+
+**Successor to [sanity-plugin-autocomplete-input](https://github.com/LiamMartens/sanity-plugin-autocomplete-input)**  
+Original by [@LiamMartens](https://github.com/LiamMartens) (last updated 2023).  
+This maintained fork adds Sanity v4 & v5 compatibility and modern tooling.
+
+> **Note**: A PR with these changes was submitted to the original repository.  
+> If the original becomes active again, this fork may redirect users back.
 
 ## Compatibility
 
@@ -18,13 +25,13 @@ This plugin is similar to the [Autocomplete Tags Plugin](https://www.sanity.io/p
 ## Installation
 
 ```
-npm install --save sanity-plugin-autocomplete-input
+npm install --save @srothgan/sanity-plugin-autocomplete-input
 ```
 
 or
 
 ```
-yarn add sanity-plugin-autocomplete-input
+yarn add @srothgan/sanity-plugin-autocomplete-input
 ```
 
 ## Usage
@@ -32,7 +39,7 @@ yarn add sanity-plugin-autocomplete-input
 Add it as a plugin in sanity.config.ts (or .js):
 
 ```js
-import { autocompletInput } from "sanity-plugin-autocomplete-input";
+import { autocompletInput } from "@srothgan/sanity-plugin-autocomplete-input";
 
 export default defineConfig({
   // ...
@@ -95,3 +102,96 @@ export default {
   ],
 };
 ```
+
+## Differences from Original
+
+This maintained fork includes the following enhancements:
+
+### Updated Dependencies
+- **Sanity v4 & v5 Support**: Fully compatible with both Sanity Studio v4 and v5
+- **React 18 & 19 Support**: Works with React 18 (Sanity v4) and React 19 (Sanity v5)
+- **Modern Build Tooling**: Migrated from Babel to SWC for faster builds
+- **TypeScript 5.3**: Updated to latest TypeScript with improved type safety
+
+### Maintained & Active
+- Regular dependency updates for security and compatibility
+- Active issue tracking and bug fixes
+- Community-driven improvements
+
+All original functionality and API remain unchanged for seamless migration.
+
+## TypeScript Usage
+
+The plugin is written in TypeScript and exports all necessary types:
+
+```typescript
+import { defineConfig } from 'sanity'
+import { autocompletInput } from '@srothgan/sanity-plugin-autocomplete-input'
+import type { InputOptions } from '@srothgan/sanity-plugin-autocomplete-input'
+
+export default defineConfig({
+  // ...
+  plugins: [autocompletInput()],
+  schema: {
+    types: [
+      {
+        name: 'myDocument',
+        type: 'document',
+        fields: [
+          {
+            name: 'category',
+            type: 'autocomplete',
+            options: {
+              autocompleteFieldPath: 'category',
+              disableNew: false,
+            } satisfies InputOptions,
+          },
+        ],
+      },
+    ],
+  },
+})
+```
+
+## Troubleshooting
+
+### Plugin not appearing in Studio
+Make sure you've added the plugin to your `sanity.config.ts`:
+```typescript
+import { autocompletInput } from '@srothgan/sanity-plugin-autocomplete-input'
+
+export default defineConfig({
+  plugins: [autocompletInput()],
+})
+```
+
+### Autocomplete options not loading
+- Verify your GROQ query returns data in the format `[{ "value": "..." }]`
+- Check the browser console for any query errors
+- Ensure the `autocompleteFieldPath` matches an existing field in your documents
+
+### TypeScript errors
+Make sure your `tsconfig.json` includes:
+```json
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  }
+}
+```
+
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on how to contribute to this project.
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for a list of changes and version history.
+
+## License
+
+MIT License - see [LICENSE](./LICENSE) file for details.
+
+Original work by [Liam Martens](https://github.com/LiamMartens)  
+Maintained fork by [Simon Rothgang](https://github.com/srothgan)

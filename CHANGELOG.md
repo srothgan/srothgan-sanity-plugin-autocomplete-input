@@ -1,5 +1,8 @@
 # CHANGELOG
 
+> **Note:** v3.0.0+ is maintained by [@srothgan](https://github.com/srothgan) as a fork.  
+> v1.x - v2.x were created by [@LiamMartens](https://github.com/LiamMartens) in the [original repository](https://github.com/LiamMartens/sanity-plugin-autocomplete-input).
+
 ## v3.0.0
 * **BREAKING:** Upgraded to Sanity Studio v4 and v5
 * Updated `sanity` peer dependency to support `^4.0.0 || ^5.0.0` (works with both versions)
@@ -9,6 +12,12 @@
 * Replaced deprecated `useFormBuilder` hook with `useFormValue` hook for v4/v5 compatibility
 * Fixed build configuration to properly strip source paths
 * Plugin code is fully compatible with both Sanity Studio v4 and v5 with no breaking changes
+
+---
+
+## Earlier versions (original repository)
+
+The following versions were maintained by [@LiamMartens](https://github.com/LiamMartens).
 
 ## v2.0.0
 * Updated for Sanity Studio v3

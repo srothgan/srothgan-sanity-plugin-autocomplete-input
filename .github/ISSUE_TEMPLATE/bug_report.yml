@@ -1,0 +1,62 @@
+name: Bug Report
+description: Report a bug or issue with the plugin
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug!
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear description of what the bug is
+      placeholder: When I configure the autocomplete with..., I expect... but instead...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: How to reproduce
+      description: Steps to reproduce the issue
+      placeholder: |
+        1. Configure the schema with...
+        2. Add an autocomplete field with options...
+        3. Type in the field...
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What you expected to happen
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      description: Which version of the plugin are you using?
+      placeholder: e.g., 3.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: sanity-version
+    attributes:
+      label: Sanity Studio version
+      description: Which version of Sanity Studio?
+      placeholder: e.g., v4.2.0 or v5.0.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Any other relevant information (screenshots, error messages, browser console logs)
