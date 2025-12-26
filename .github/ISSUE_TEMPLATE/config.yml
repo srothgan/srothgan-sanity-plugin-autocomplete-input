@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://github.com/srothgan/sanity-plugin-autocomplete-input#readme
+    about: Check the README for usage examples and configuration options

@@ -1,8 +1,17 @@
 {
-  "name": "sanity-plugin-autocomplete-input",
-  "version": "3.0.0",
+  "name": "@srothgan/sanity-plugin-autocomplete-input",
+  "version": "3.0.1",
   "license": "MIT",
   "type": "module",
+  "scripts": {
+    "build:js": "swc ./src -d ./lib --strip-leading-paths",
+    "build:types": "tsc -p .",
+    "build": "run-p build:*",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,json}\""
+  },
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "exports": {
@@ -18,22 +27,46 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/LiamMartens/sanity-plugin-autocomplete-input"
+    "url": "https://github.com/srothgan/srothgan-sanity-plugin-autocomplete-input"
   },
   "bugs": {
-    "url": "https://github.com/LiamMartens/sanity-plugin-autocomplete-input/issues"
+    "url": "https://github.com/srothgan/srothgan-sanity-plugin-autocomplete-input/issues"
   },
   "author": {
-    "name": "Liam Martens",
-    "email": "liam@freighter.studio"
+    "name": "Simon Rothgang",
+    "email": "simonrothgang@gmail.com"
   },
+  "contributors": [
+    {
+      "name": "Liam Martens",
+      "email": "liam@freighter.studio",
+      "url": "https://github.com/LiamMartens"
+    }
+  ],
+  "keywords": [
+    "sanity-plugin",
+    "autocomplete",
+    "v4",
+    "v5",
+    "maintained",
+    "input",
+    "sanity-v5"
+  ],
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
     "@sanity/ui": "^3.1.11",
     "@swc/cli": "^0.7.9",
     "@swc/core": "^1.3.99",
     "@types/node": "^20.19.0",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^8.50.1",
+    "@typescript-eslint/parser": "^8.50.1",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "npm-run-all": "^4.1.5",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "sanity": "^5.1.0",
@@ -44,12 +77,6 @@
     "just-compact": "^3.2.0",
     "just-pick": "^4.2.0",
     "just-safe-get": "^4.2.0",
-    "just-unique": "^4.2.0",
-    "npm-run-all": "^4.1.5"
-  },
-  "scripts": {
-    "build:js": "swc ./src -d ./lib --strip-leading-paths",
-    "build:types": "tsc -p .",
-    "build": "run-p build:*"
+    "just-unique": "^4.2.0"
   }
 }

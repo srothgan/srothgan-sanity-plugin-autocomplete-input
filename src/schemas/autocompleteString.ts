@@ -1,4 +1,3 @@
-import React from "react";
 import { defineType, StringDefinition } from "sanity";
 import type { InputOptions } from "../types";
 import { AutoCompleteInput } from "../AutoCompleteInput";
