@@ -75,7 +75,7 @@ export const AutoCompleteInput = (props: InputProps) => {
         setLoading(false);
       }
     });
-  }, [query, schemaType.options, documentValue, sanityClient]);
+  }, [schemaType.options, documentValue, sanityClient]);
 
   return (
     <Autocomplete
