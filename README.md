@@ -39,12 +39,12 @@ yarn add @srothgan/sanity-plugin-autocomplete-input
 Add it as a plugin in sanity.config.ts (or .js):
 
 ```js
-import { autocompletInput } from "@srothgan/sanity-plugin-autocomplete-input";
+import {autocompletInput} from '@srothgan/sanity-plugin-autocomplete-input'
 
 export default defineConfig({
   // ...
   plugins: [autocompletInput()],
-});
+})
 ```
 
 ### Configuration Options
@@ -112,11 +112,11 @@ It is also possible to refer to the current parent value (for a top-level field 
 export default {
   fields: [
     {
-      name: "autocomplete-input",
-      type: "autocomplete",
+      name: 'autocomplete-input',
+      type: 'autocomplete',
       options: {
         groq: {
-          query: "*[_id != $docId]",
+          query: '*[_id != $docId]',
           params: (parent) => ({
             docId: parent?._id,
           }),
@@ -124,7 +124,7 @@ export default {
       },
     },
   ],
-};
+}
 ```
 
 ### TypeScript Usage
@@ -132,9 +132,9 @@ export default {
 The plugin is written in TypeScript and exports all necessary types:
 
 ```typescript
-import { defineConfig } from 'sanity'
-import { autocompletInput } from '@srothgan/sanity-plugin-autocomplete-input'
-import type { InputOptions } from '@srothgan/sanity-plugin-autocomplete-input'
+import {defineConfig} from 'sanity'
+import {autocompletInput} from '@srothgan/sanity-plugin-autocomplete-input'
+import type {InputOptions} from '@srothgan/sanity-plugin-autocomplete-input'
 
 export default defineConfig({
   // ...
@@ -165,12 +165,14 @@ export default defineConfig({
 This maintained fork includes the following enhancements:
 
 ### Updated Dependencies
+
 - **Sanity v4 & v5 Support**: Fully compatible with both Sanity Studio v4 and v5
 - **React 18 & 19 Support**: Works with React 18 (Sanity v4) and React 19 (Sanity v5)
 - **Modern Build Tooling**: Migrated from Babel to SWC for faster builds
 - **TypeScript 5.3**: Updated to latest TypeScript with improved type safety
 
 ### Maintained & Active
+
 - Regular dependency updates for security and compatibility
 - Active issue tracking and bug fixes
 - Community-driven improvements
@@ -180,9 +182,11 @@ All original functionality and API remain unchanged for seamless migration.
 ## Troubleshooting
 
 ### Plugin not appearing in Studio
+
 Make sure you've added the plugin to your `sanity.config.ts`:
+
 ```typescript
-import { autocompletInput } from '@srothgan/sanity-plugin-autocomplete-input'
+import {autocompletInput} from '@srothgan/sanity-plugin-autocomplete-input'
 
 export default defineConfig({
   plugins: [autocompletInput()],
@@ -190,12 +194,15 @@ export default defineConfig({
 ```
 
 ### Autocomplete options not loading
+
 - Verify your GROQ query returns data in the format `[{ "value": "..." }]`
 - Check the browser console for any query errors
 - Ensure the `autocompleteFieldPath` matches an existing field in your documents
 
 ### TypeScript errors
+
 Make sure your `tsconfig.json` includes:
+
 ```json
 {
   "compilerOptions": {

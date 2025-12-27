@@ -1,81 +1,108 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import get from "just-safe-get";
-import compact from "just-compact";
-import unique from "just-unique";
-import { Autocomplete, Text, Card } from "@sanity/ui";
-import { PatchEvent, StringInputProps, StringSchemaType, set, unset, useClient, useFormValue } from "sanity";
-import type { InputOptions, Option } from "./types";
+import {Autocomplete, Card, Text} from '@sanity/ui'
+import compact from 'just-compact'
+import get from 'just-safe-get'
+import unique from 'just-unique'
+import React, {useCallback, useEffect, useMemo, useState} from 'react'
+import {
+  PatchEvent,
+  set,
+  StringInputProps,
+  StringSchemaType,
+  unset,
+  useClient,
+  useFormValue,
+} from 'sanity'
 
-export type AutocompleteSchemaType = Omit<StringSchemaType, "options"> & {
-  options?: StringSchemaType["options"] & InputOptions;
-};
-export type InputProps = StringInputProps<AutocompleteSchemaType>;
+import type {InputOptions, Option} from './types/index.js'
 
-export const AutoCompleteInput = (props: InputProps) => {
-  const { id, schemaType, value, validationError, readOnly, onChange } = props;
+export type AutocompleteSchemaType = Omit<StringSchemaType, 'options'> & {
+  options?: StringSchemaType['options'] & InputOptions
+}
+export type InputProps = StringInputProps<AutocompleteSchemaType>
 
-  const sanityClient = useClient();
-  const documentValue = useFormValue([]);
-  const [loading, setLoading] = useState(false);
-  const [query, setQuery] = React.useState("");
-  const [options, setOptions] = React.useState<Option[]>([]);
-  const canCreateNew = schemaType.options?.disableNew !== true;
+export const AutoCompleteInput = (props: InputProps): React.ReactElement => {
+  const {id, schemaType, value, validationError, readOnly, onChange} = props
 
-  const optionsList = useMemo<(Option & { isNew?: boolean })[]>(() => {
+  const sanityClient = useClient()
+  const documentValue = useFormValue([])
+  const [loading, setLoading] = useState(false)
+  const [query, setQuery] = React.useState('')
+  const [options, setOptions] = React.useState<Option[]>([])
+  const canCreateNew = schemaType.options?.disableNew !== true
+
+  const optionsList = useMemo<(Option & {isNew?: boolean})[]>(() => {
     const uniqueOptions = unique(
-      options.map(({ value }) => value),
+      options.map(({value: optionValue}) => optionValue),
       false,
       true,
-    );
-    const queryInOptions = uniqueOptions.find((value) => value === query);
+    )
+    const queryInOptions = uniqueOptions.find((optionValue) => optionValue === query)
     if (!queryInOptions && canCreateNew) {
-      return [...uniqueOptions.map((value) => ({ value })), { value: query, isNew: true }];
+      return [
+        ...uniqueOptions.map((optionValue) => ({value: optionValue})),
+        {value: query, isNew: true},
+      ]
     }
 
-    return uniqueOptions.map((value) => ({ value }));
-  }, [query, options, canCreateNew]);
+    return uniqueOptions.map((optionValue) => ({value: optionValue}))
+  }, [query, options, canCreateNew])
 
-  const handleQueryChange = useCallback((query: string | null) => {
-    setQuery(query ?? "");
-  }, []);
+  const handleQueryChange = useCallback((queryValue: string | null) => {
+    setQuery(queryValue ?? '')
+  }, [])
 
   const handleChange = useCallback(
-    (value: string) => {
-      onChange(PatchEvent.from(value ? set(value) : unset()));
+    (newValue: string) => {
+      onChange(PatchEvent.from(newValue ? set(newValue) : unset()))
     },
     [onChange],
-  );
+  )
+
+  const renderOption = useCallback(
+    (option: Option & {isNew?: boolean}) => (
+      <Card as="button" padding={3} tone={option.isNew ? 'primary' : 'default'} shadow={1}>
+        {option.isNew ? (
+          canCreateNew && <Text>Create new option &quot;{option.value}&quot;</Text>
+        ) : (
+          <Text>{option.value}</Text>
+        )}
+      </Card>
+    ),
+    [canCreateNew],
+  )
 
   useEffect(() => {
     if (schemaType.options?.options) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setOptions(schemaType.options.options);
-      setLoading(false);
-      return;
+      setOptions(schemaType.options.options)
+      setLoading(false)
+      return
     }
 
-    const path = schemaType.options?.autocompleteFieldPath ?? "title";
+    const path = schemaType.options?.autocompleteFieldPath ?? 'title'
     const {
-      query,
+      query: groqQuery,
       transform,
       params = {},
     } = schemaType.options?.groq || {
       query: `*[defined(${path})] { "value": ${path} }`,
-    };
+    }
 
     const resolvedParams =
-      typeof params === "function" ? params(documentValue as Record<string, unknown> | undefined) : params;
+      typeof params === 'function'
+        ? params(documentValue as Record<string, unknown> | undefined)
+        : params
 
-    setLoading(true);
-    sanityClient.fetch(query, resolvedParams).then((results) => {
+    setLoading(true)
+    sanityClient.fetch(groqQuery, resolvedParams).then((results) => {
       if (Array.isArray(results)) {
-        const transformedResults = transform ? transform(results) : results;
-        const compactedValues = compact(transformedResults.map((doc) => get(doc, "value")));
-        setOptions(compactedValues.map((value) => ({ value: String(value) })));
-        setLoading(false);
+        const transformedResults = transform ? transform(results) : results
+        const compactedValues = compact(transformedResults.map((doc) => get(doc, 'value')))
+        setOptions(compactedValues.map((optionValue) => ({value: String(optionValue)})))
+        setLoading(false)
       }
-    });
-  }, [schemaType.options, documentValue, sanityClient]);
+    })
+  }, [schemaType.options, documentValue, sanityClient])
 
   return (
     <Autocomplete
@@ -85,18 +112,10 @@ export const AutoCompleteInput = (props: InputProps) => {
       loading={loading}
       disabled={loading}
       options={optionsList}
-      value={value ?? ""}
+      value={value ?? ''}
       onChange={handleChange}
       onQueryChange={handleQueryChange}
-      renderOption={(option) => (
-        <Card as="button" padding={3} tone={option.isNew ? "primary" : "default"} shadow={1}>
-          {option.isNew ? (
-            canCreateNew && <Text>Create new option &quot;{option.value}&quot;</Text>
-          ) : (
-            <Text>{option.value}</Text>
-          )}
-        </Card>
-      )}
+      renderOption={renderOption}
     />
-  );
-};
+  )
+}
