@@ -1,0 +1,8 @@
+{
+  "parts": [
+    {
+      "implements": "part:@sanity/base/sanity-root",
+      "path": "./version-incompatible.js"
+    }
+  ]
+}

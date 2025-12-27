@@ -1,2 +1,2 @@
-export type { InputOptions } from "./InputOptions";
-export type { Option } from "./Option";
+export type {InputOptions} from './InputOptions.js'
+export type {Option} from './Option.js'

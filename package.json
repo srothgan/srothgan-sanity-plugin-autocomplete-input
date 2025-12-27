@@ -1,41 +1,19 @@
 {
   "name": "@srothgan/sanity-plugin-autocomplete-input",
-  "version": "3.0.3",
-  "license": "MIT",
-  "type": "module",
-  "scripts": {
-    "build:js": "swc ./src -d ./lib --strip-leading-paths",
-    "build:types": "tsc -p .",
-    "build": "run-p build:*",
-    "lint": "eslint src/**/*.{ts,tsx}",
-    "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
-    "format": "prettier --write \"src/**/*.{ts,tsx,json}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,json}\""
-  },
-  "types": "./lib/index.d.ts",
-  "module": "./lib/index.js",
-  "exports": {
-    ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    }
-  },
-  "browserslist": "> 0.5%, last 2 versions, not dead",
-  "files": [
-    "lib"
+  "version": "3.1.0",
+  "description": "Autocomplete input plugin for Sanity",
+  "keywords": [
+    "sanity",
+    "sanity-plugin",
+    "autocomplete",
+    "input",
+    "v4",
+    "v5",
+    "maintained",
+    "sanity-v5"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/srothgan/srothgan-sanity-plugin-autocomplete-input"
-  },
-  "bugs": {
-    "url": "https://github.com/srothgan/srothgan-sanity-plugin-autocomplete-input/issues"
-  },
-  "author": {
-    "name": "Simon Rothgang",
-    "email": "simonrothgang@gmail.com"
-  },
+  "license": "MIT",
+  "author": "Simon Rothgang <simonrothgang@gmail.com>",
   "contributors": [
     {
       "name": "Liam Martens",
@@ -43,40 +21,94 @@
       "url": "https://github.com/LiamMartens"
     }
   ],
-  "keywords": [
-    "sanity-plugin",
-    "autocomplete",
-    "v4",
-    "v5",
-    "maintained",
-    "input",
-    "sanity-v5"
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "sanity.json",
+    "src",
+    "v2-incompatible.js"
   ],
-  "devDependencies": {
-    "@eslint/js": "^9.39.2",
-    "@sanity/ui": "^3.1.11",
-    "@swc/cli": "^0.7.9",
-    "@swc/core": "^1.3.99",
-    "@types/node": "^20.19.0",
-    "@types/react": "^18.2.38",
-    "@types/react-dom": "^18.2.17",
-    "@typescript-eslint/eslint-plugin": "^8.50.1",
-    "@typescript-eslint/parser": "^8.50.1",
-    "eslint": "^9.39.2",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "npm-run-all": "^4.1.5",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "sanity": "^5.1.0",
-    "styled-components": "^6.1.19",
-    "typescript": "~5.3.2"
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs",
+        "default": "./dist/index.js"
+      },
+      "./package.json": "./package.json"
+    }
+  },
+  "scripts": {
+    "build": "plugin-kit verify-package --silent && pkg-utils build --strict --check --clean",
+    "format": "prettier --write --cache --ignore-unknown .",
+    "format:check": "prettier --check --cache --ignore-unknown .",
+    "link-watch": "plugin-kit link-watch",
+    "lint": "eslint .",
+    "prepublishOnly": "npm run build",
+    "watch": "pkg-utils watch --strict"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/srothgan/srothgan-sanity-plugin-autocomplete-input"
+  },
+  "bugs": {
+    "url": "https://github.com/srothgan/srothgan-sanity-plugin-autocomplete-input/issues"
   },
   "dependencies": {
+    "@sanity/incompatible-plugin": "^1.0.5",
     "just-compact": "^3.2.0",
     "just-pick": "^4.2.0",
     "just-safe-get": "^4.2.0",
     "just-unique": "^4.2.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.39.2",
+    "@sanity/pkg-utils": "^10.2.3",
+    "@sanity/plugin-kit": "^4.0.20",
+    "@sanity/ui": "^3.1.11",
+    "@types/react": "^19.2.7",
+    "@typescript-eslint/eslint-plugin": "^8.50.1",
+    "@typescript-eslint/parser": "^8.50.1",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-config-sanity": "^7.1.4",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "prettier": "^3.7.4",
+    "prettier-plugin-packagejson": "^2.5.20",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "sanity": "^5.1.0",
+    "styled-components": "^6.1.19",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "@sanity/ui": "^2 || ^3",
+    "react": "^18 || ^19",
+    "sanity": "^4 || ^5"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "browserslist": "extends @sanity/browserslist-config",
+  "sanityPlugin": {
+    "verifyPackage": {
+      "eslintImports": false
+    }
   }
 }

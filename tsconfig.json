@@ -1,32 +1,4 @@
 {
-  "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./lib",
-    "module": "ESNext",
-    "target": "ES2015",
-    "moduleResolution": "node",
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "jsx": "react",
-    "lib": [
-      "ESNext",
-      "ES2021",
-      "ES2015",
-      "DOM"
-    ]
-  },
-  "include": [
-    "sanity.d.ts",
-    "./**/*.ts",
-    "./**/*.tsx"
-  ],
-  "exclude": [
-    "lib",
-    "node_modules"
-  ]
+  "extends": "./tsconfig.settings",
+  "include": ["./src", "package.config.mts"]
 }

@@ -1,3 +1,3 @@
 export type Option = {
-  value: string;
-};
+  value: string
+}
