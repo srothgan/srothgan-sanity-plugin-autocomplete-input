@@ -47,61 +47,37 @@ export default defineConfig({
 });
 ```
 
-### Configuration Options
+You can just use it as a schema type. To customize the autocomplete list you have 3 options:
 
-You can configure the autocomplete behavior using one of three approaches:
-
-#### 1. Auto-aggregate from Existing Documents
-
-The plugin automatically collects unique values from documents with the same field:
+1. Specify the `autocompleteFieldPath` option, which the plugin will use to look for documents with the same field path to aggregate the option values.
+2. Manually specify options in the schema option
+3. Specify your own GROQ query returning a `[{ "value": "foobar" }]` format (you can use a `transform` function if this is not achievable using GROQ only)
 
 ```javascript
-{
-  name: "category",
-  type: "autocomplete",
-  options: {
-    autocompleteFieldPath: "category", // aggregates from all documents with this field
-    disableNew: false, // optional: prevent users from creating new values
-  },
-}
-```
-
-#### 2. Manual Options List
-
-Provide a predefined list of options:
-
-```javascript
-{
-  name: "status",
-  type: "autocomplete",
-  options: {
-    options: [
-      { value: "Draft" },
-      { value: "Published" },
-      { value: "Archived" }
-    ],
-  },
-}
-```
-
-#### 3. Custom GROQ Query
-
-Define your own query for maximum flexibility:
-
-```javascript
-{
-  name: "author",
-  type: "autocomplete",
-  options: {
-    groq: {
-      query: '*[_type == $type] { "value": title }',
-      params: {
-        type: "author",
+export default {
+  fields: [
+    {
+      name: "autocomplete-input",
+      type: "autocomplete",
+      options: {
+        // specify field path
+        autocompleteFieldPath: "title",
+        // this option can be used to disable using "new" values
+        disableNew: false,
+        // manually specify options
+        options: [{ value: "Option 1" }, { value: "Option 2" }],
+        // specify custom groq query
+        groq: {
+          query: '*[_type == $type] { "value": title }',
+          params: {
+            type: "page",
+          },
+          transform: (values) => values,
+        },
       },
-      transform: (values) => values, // optional: transform results
     },
-  },
-}
+  ],
+};
 ```
 
 ### Advanced GROQ parameters
@@ -127,7 +103,24 @@ export default {
 };
 ```
 
-### TypeScript Usage
+## Differences from Original
+
+This maintained fork includes the following enhancements:
+
+### Updated Dependencies
+- **Sanity v4 & v5 Support**: Fully compatible with both Sanity Studio v4 and v5
+- **React 18 & 19 Support**: Works with React 18 (Sanity v4) and React 19 (Sanity v5)
+- **Modern Build Tooling**: Migrated from Babel to SWC for faster builds
+- **TypeScript 5.3**: Updated to latest TypeScript with improved type safety
+
+### Maintained & Active
+- Regular dependency updates for security and compatibility
+- Active issue tracking and bug fixes
+- Community-driven improvements
+
+All original functionality and API remain unchanged for seamless migration.
+
+## TypeScript Usage
 
 The plugin is written in TypeScript and exports all necessary types:
 
@@ -159,23 +152,6 @@ export default defineConfig({
   },
 })
 ```
-
-## Differences from Original
-
-This maintained fork includes the following enhancements:
-
-### Updated Dependencies
-- **Sanity v4 & v5 Support**: Fully compatible with both Sanity Studio v4 and v5
-- **React 18 & 19 Support**: Works with React 18 (Sanity v4) and React 19 (Sanity v5)
-- **Modern Build Tooling**: Migrated from Babel to SWC for faster builds
-- **TypeScript 5.3**: Updated to latest TypeScript with improved type safety
-
-### Maintained & Active
-- Regular dependency updates for security and compatibility
-- Active issue tracking and bug fixes
-- Community-driven improvements
-
-All original functionality and API remain unchanged for seamless migration.
 
 ## Troubleshooting
 

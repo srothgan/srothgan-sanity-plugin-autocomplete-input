@@ -3,29 +3,6 @@
 > **Note:** v3.0.0+ is maintained by [@srothgan](https://github.com/srothgan) as a fork.  
 > v1.x - v2.x were created by [@LiamMartens](https://github.com/LiamMartens) in the [original repository](https://github.com/LiamMartens/sanity-plugin-autocomplete-input).
 
-## v3.0.3
-* **Documentation:** Improved README.md Usage section with clearer structure
-  * Split configuration options into three separate subsections for better readability
-  * Added progressive disclosure pattern (simplest option first)
-  * Enhanced code examples with inline comments for each approach
-  * Improved scannability with numbered headers and focused examples
-
-## v3.0.2
-* **Fix:** Prevent input interruption on keystroke ([#1](https://github.com/srothgan/sanity-plugin-autocomplete-input/pull/1))
-  * Fixed issue where entering field for autocomplete input caused keystroke interruption
-  * Removed unnecessary `useEffect` dependency that was causing re-renders
-
-## v3.0.1
-* **Chore:** Added GitHub workflows, community files, and updated documentation
-  * Added GitHub Actions workflows for build verification and npm publishing
-  * Added Dependabot configuration with cooldown periods
-  * Added issue templates (bug report, feature request, question)
-  * Added pull request template
-  * Added CONTRIBUTING.md and CODE_OF_CONDUCT.md
-  * Updated README.md with TypeScript usage examples, troubleshooting section, and links
-  * Configured trusted publishing (OIDC) for npm
-  * Auto-generate Git tags from package.json version
-
 ## v3.0.0
 * **BREAKING:** Upgraded to Sanity Studio v4 and v5
 * Updated `sanity` peer dependency to support `^4.0.0 || ^5.0.0` (works with both versions)
